@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import java.text.DecimalFormat
 
 class MainActivity : AppCompatActivity() {
@@ -13,8 +14,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val carPrice = findViewById<EditText>(R.id.editTextCarPrice)
+        val downPayment = findViewById<EditText>(R.id.editTextDownPayment)
+        val loanPeriod = findViewById<EditText>(R.id.editTextLoanPeriod)
+        val interestRate = findViewById<EditText>(R.id.editTextInterestRate)
+
         findViewById<Button>(R.id.buttonCalculate).setOnClickListener{
-            loanCalculator(it)
+            if (carPrice.text.toString().isNotEmpty()&&downPayment.text.toString().isNotEmpty()&&loanPeriod.text.toString().isNotEmpty()&&interestRate.text.toString().isNotEmpty()){
+                loanCalculator(it)
+            }else{
+                Toast.makeText(this, R.string.error_input, Toast.LENGTH_SHORT).show()
+            }
         }
         findViewById<Button>(R.id.buttonReset).setOnClickListener{
             resetInput(it)
